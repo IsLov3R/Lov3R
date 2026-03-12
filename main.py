@@ -1,7 +1,7 @@
 import os
 import json
 from datetime import datetime
-
+import time
 import telebot
 from telebot.types import (
     ReplyKeyboardMarkup,
@@ -561,4 +561,10 @@ def confirm_delete(message, film_name):
     bot.send_message(message.chat.id, "Фильм не найден 😢", reply_markup=kb_start())
 
 print("Бот запущен...")
-bot.polling(none_stop=True)
+
+while True:
+    try:
+        bot.infinity_polling(timeout=60, long_polling_timeout=60)
+    except Exception as e:
+        print("Ошибка:", e)
+        time.sleep(5)
